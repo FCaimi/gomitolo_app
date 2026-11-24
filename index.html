@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gomitolo - Giochi di Parole</title>
+<meta name="description" content="Gomitolo è un gioco di parole gratuito: collega le lettere per trovare le parole nascoste nella griglia. Centinaia di livelli, un puzzle nuovo ogni giorno e time attack. In italiano, anche offline.">
+<link rel="canonical" href="https://fcaimi.github.io/gomitolo_app/">
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="theme-color" content="#fff4e4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1d1612" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="Gomitolo">
+<meta property="og:title" content="Gomitolo - Giochi di Parole">
+<meta property="og:description" content="Collega le lettere per trovare le parole nascoste. Gratis, in italiano, anche offline.">
+<meta property="og:url" content="https://fcaimi.github.io/gomitolo_app/">
+<meta property="og:image" content="https://fcaimi.github.io/gomitolo_app/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Gomitolo: collega le lettere per trovare le parole nascoste">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Gomitolo",
+  "alternateName": "Gomitolo - Giochi di Parole",
+  "description": "Gioco di parole su griglia di lettere: collega le lettere per trovare le parole nascoste. Campagna, puzzle giornaliero e time attack, in italiano e anche offline.",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Android, iOS",
+  "inLanguage": "it",
+  "image": "https://fcaimi.github.io/gomitolo_app/assets/og.png",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+}
+</script>
+
+<script>
+  // Collegamenti agli store. Le app non sono ancora pubblicate: finché un flag
+  // è false il pulsante resta "In arrivo" e non punta a un link che non esiste.
+  // Quando un'app è online basta mettere true: il pulsante diventa un link e,
+  // da telefono, la pagina porta direttamente allo store (aggiungi ?noredirect
+  // all'indirizzo per vedere comunque la pagina).
+  (function () {
+    var LIVE = { play: false, apple: false };
+    var links = {
+      play: 'https://play.google.com/store/apps/details?id=com.fcaimi.gomitolo',
+      apple: 'https://apps.apple.com/app/id6835828234'
+    };
+    window.GOMITOLO_STORES = { live: LIVE, links: links };
+    try {
+      if (location.search.indexOf('noredirect') !== -1) return;
+      var ua = navigator.userAgent || '';
+      var isAndroid = /android/i.test(ua);
+      var isIOS = /iPad|iPhone|iPod/.test(ua) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      if (isAndroid && LIVE.play) location.replace(links.play);
+      else if (isIOS && LIVE.apple) location.replace(links.apple);
+    } catch (e) { /* si resta sulla pagina */ }
+  })();
+</script>
+
+<style>
+  :root { --bg:#fff4e4; --fg:#2b1f1a; --muted:#6b5a50; --accent:#b8422e; --coral:#e85d45;
+          --card:#fffbf4; --line:#e6d3bd; --btn:#cc4b35; --btnfg:#fff4e4; --off:#efe0cb; --offfg:#6b5a50; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#1d1612; --fg:#f3e6d6; --muted:#b9a899; --accent:#ff8a73; --coral:#ff8a73;
+            --card:#2a201a; --line:#44352b; --btn:#ff8a73; --btnfg:#1d1612; --off:#2f241d; --offfg:#b9a899; }
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; overflow-x:clip; }
+  body { overflow-x:clip; margin:0; background:var(--bg); color:var(--fg);
+         font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+         padding:0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); }
+  main { max-width:44rem; margin:0 auto; padding:calc(2.5rem + env(safe-area-inset-top)) 0 2rem;
+         display:flex; flex-direction:column; align-items:center; text-align:center; }
+  .logo { width:96px; height:96px; border-radius:22px; }
+  h1 { font-size:clamp(2.4rem, 9vw, 3.4rem); line-height:1.05; letter-spacing:-.02em; margin:1rem 0 .5rem; }
+  .tagline { font-size:clamp(1.1rem, 3.6vw, 1.3rem); font-weight:600; line-height:1.4; margin:0 0 .5rem; max-width:24em; text-wrap:balance; }
+  .sub { color:var(--muted); margin:0 0 1.75rem; }
+
+  .shots { width:100vw; max-width:100vw; margin:0 calc(50% - 50vw); }
+  .rail { display:flex; gap:14px; overflow-x:auto; padding:6px max(16px, calc(50vw - 22rem)) 18px;
+          scroll-snap-type:x mandatory; scroll-padding:0 max(16px, calc(50vw - 22rem));
+          -webkit-overflow-scrolling:touch; scrollbar-width:thin; }
+  .rail:focus-visible { outline:3px solid var(--coral); outline-offset:-3px; border-radius:12px; }
+  .rail figure { margin:0; flex:0 0 auto; width:min(62vw, 250px); scroll-snap-align:center; }
+  .rail img { display:block; width:100%; height:auto; border-radius:22px; border:1px solid var(--line);
+              box-shadow:0 10px 28px rgba(43,31,26,.18); background:var(--card); }
+
+  .stores { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:1.25rem 0 .4rem; }
+  .store { display:inline-flex; flex-direction:column; align-items:flex-start; justify-content:center; min-width:12.5rem; min-height:3.4rem;
+           padding:.55rem 1.1rem; border-radius:14px; text-decoration:none; background:var(--btn); color:var(--btnfg); }
+  .store small { font-size:.72rem; opacity:.85; line-height:1.1; }
+  .store b { font-size:1.1rem; line-height:1.25; }
+  .store[aria-disabled="true"] { background:var(--off); color:var(--offfg); border:1px dashed var(--line); cursor:default; pointer-events:none; }
+  .store:not([aria-disabled="true"]):hover { filter:brightness(1.06); }
+  .store:focus-visible { outline:3px solid var(--coral); outline-offset:3px; }
+  .note { color:var(--muted); font-size:.9rem; margin:0; }
+
+  .about { margin:2.25rem 0 0; max-width:36rem; text-align:left; }
+  .about h2 { font-size:1.15rem; margin:0 0 .4rem; text-align:center; }
+  .about p { margin:.4rem 0; color:var(--fg); }
+  .modes { list-style:none; margin:1rem 0 0; padding:0; display:grid; gap:.6rem; }
+  .modes li { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:.7rem .9rem; }
+  .modes b { display:block; }
+  .modes span { color:var(--muted); font-size:.95rem; }
+
+  footer { max-width:44rem; margin:0 auto; padding:1.25rem 0 calc(2.5rem + env(safe-area-inset-bottom));
+           border-top:1px solid var(--line); text-align:center; color:var(--muted); font-size:.92rem; }
+  footer nav { display:flex; flex-wrap:wrap; gap:.4rem 1.25rem; justify-content:center; margin-bottom:.6rem; }
+  footer a { color:var(--accent); }
+  @media (prefers-reduced-motion: reduce) { .rail { scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+<main>
+  <img class="logo" src="logo.png" alt="Logo di Gomitolo" width="96" height="96">
+  <h1>Gomitolo</h1>
+  <p class="tagline">Collega le lettere per trovare le parole nascoste</p>
+  <p class="sub">Gioco di parole gratuito · in italiano · anche offline</p>
+
+  <div class="shots">
+    <div class="rail" tabindex="0" role="group" aria-label="Schermate di Gomitolo, scorri di lato">
+      <figure><img src="assets/s1.jpg" width="540" height="960" alt="Partita: lettere collegate con il dito per formare una parola"></figure>
+      <figure><img src="assets/s2.jpg" width="540" height="960" alt="Elenco dei livelli con i gruppi dai nomi di filati" loading="lazy"></figure>
+      <figure><img src="assets/s3.jpg" width="540" height="960" alt="Time attack: parole contro il tempo" loading="lazy"></figure>
+      <figure><img src="assets/s4.jpg" width="540" height="960" alt="Il puzzle giornaliero con il calendario" loading="lazy"></figure>
+      <figure><img src="assets/s5.jpg" width="540" height="960" alt="La schermata iniziale di Gomitolo" loading="lazy"></figure>
+    </div>
+  </div>
+
+  <div class="stores">
+    <a class="store" id="store-play" href="#" aria-disabled="true" role="link"><small>In arrivo su</small><b>Google Play</b></a>
+    <a class="store" id="store-apple" href="#" aria-disabled="true" role="link"><small>In arrivo su</small><b>App Store</b></a>
+  </div>
+  <p class="note" id="stores-note">Gomitolo è in fase di prova: presto sarà disponibile sugli store.</p>
+
+  <section class="about" aria-labelledby="about-title">
+    <h2 id="about-title">Come si gioca</h2>
+    <p>Scorri il dito su lettere vicine, in orizzontale o in verticale, per formare le parole nascoste nella griglia. Trovale tutte e usa tutte le lettere per superare il livello.</p>
+    <ul class="modes">
+      <li><b>Campagna</b><span>Centinaia di livelli, da piccole griglie 2×2 fino a 5×5, raggruppati con nomi di filati.</span></li>
+      <li><b>Puzzle giornaliero</b><span>Ogni giorno una griglia nuova, uguale per tutti: allunga la tua serie e condividi il risultato.</span></li>
+      <li><b>Time attack</b><span>Tanti puzzle in sequenza contro il tempo: ogni parola regala secondi, ogni errore li toglie.</span></li>
+    </ul>
+    <p style="margin-top:1rem">Gratis, con annunci e senza acquisti in app. Funziona anche senza connessione.</p>
+  </section>
+</main>
+
+<footer>
+  <nav aria-label="Informazioni legali e contatti">
+    <a href="privacy.html">Informativa sulla privacy</a>
+    <a href="terms.html">Termini di servizio</a>
+    <a href="mailto:fcaimidev@gmail.com">Supporto</a>
+  </nav>
+  <div>© 2026 Gomitolo · Per giocatori dai 16 anni in su</div>
+</footer>
+
+<script>
+  // Attiva i pulsanti degli store quando l'app è online (vedi sopra).
+  (function () {
+    var s = window.GOMITOLO_STORES; if (!s) return;
+    var any = false;
+    [['play', 'store-play', 'Google Play', 'Scarica su'], ['apple', 'store-apple', 'App Store', 'Scarica da']].forEach(function (x) {
+      if (!s.live[x[0]]) return;
+      var a = document.getElementById(x[1]); if (!a) return;
+      a.href = s.links[x[0]]; a.removeAttribute('aria-disabled'); a.removeAttribute('role');
+      a.querySelector('small').textContent = x[3]; any = true;
+    });
+    var note = document.getElementById('stores-note');
+    if (any && note) note.hidden = true;
+  })();
+</script>
+</body>
+</html>
