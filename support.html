@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Supporto - Gomitolo</title>
+<meta name="description" content="Supporto per l'app Gomitolo: scrivici un'email e leggi le risposte alle domande più frequenti su progressi, monete, suggerimenti e consenso.">
+<link rel="canonical" href="https://fcaimi.github.io/gomitolo_app/support.html">
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="theme-color" content="#fff4e4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1d1612" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="Gomitolo">
+<meta property="og:title" content="Supporto - Gomitolo">
+<meta property="og:description" content="Hai un dubbio o un problema con Gomitolo? Scrivici.">
+<meta property="og:url" content="https://fcaimi.github.io/gomitolo_app/support.html">
+<meta property="og:image" content="https://fcaimi.github.io/gomitolo_app/assets/og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Serve internet per giocare?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Tutti i puzzle sono già nell'app e il gioco funziona anche offline. La connessione serve solo per i video facoltativi che regalano monete e per gli annunci."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ho cambiato telefono o reinstallato l'app: ritrovo i miei progressi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Gomitolo non ha account e non salva i progressi online: livelli, monete e impostazioni restano sul tuo telefono. Se il sistema del telefono non li ripristina da solo, cambiando telefono o disinstallando l'app si perdono. Per ricominciare da capo di proposito vai in Impostazioni → Azzera progresso."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Come cambio il consenso agli annunci e alle statistiche?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Da Impostazioni → Privacy e consenso puoi rivedere le tue scelte in qualsiasi momento. I dettagli sono nell'informativa sulla privacy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Come funzionano suggerimenti e monete?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le monete si guadagnano giocando (completando livelli, trovando parole extra, con il puzzle giornaliero) e con i video facoltativi: non esistono acquisti in app. Il primo suggerimento di un livello è gratuito, gli altri si pagano con le monete."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Perché il Time attack è bloccato?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si sblocca dopo aver completato alcuni livelli della campagna: nella schermata iniziale vedi quale livello serve."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Una parola valida non viene accettata. Perché?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Il gioco riconosce un elenco di parole italiane comuni (sostantivi e verbi, con le loro forme più usate). Alcune parole valide non ci sono, e le parole accentate o troncate non contano né come bonus né come errore. Se pensi che ne manchi una, scrivici quale."
+      }
+    }
+  ]
+}
+</script>
+<style>
+  :root { --bg:#fff4e4; --fg:#2b1f1a; --muted:#6b5a50; --accent:#b8422e; --coral:#e85d45;
+          --card:#fffbf4; --line:#e6d3bd; --btn:#cc4b35; --btnfg:#fff4e4; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#1d1612; --fg:#f3e6d6; --muted:#b9a899; --accent:#ff8a73; --coral:#ff8a73;
+            --card:#2a201a; --line:#44352b; --btn:#ff8a73; --btnfg:#1d1612; }
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--bg); color:var(--fg);
+         font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+         padding:0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); }
+  main { max-width:40rem; margin:0 auto; padding:calc(2rem + env(safe-area-inset-top)) 0 1.5rem; }
+  a { color:var(--accent); }
+  .brand { display:flex; align-items:center; gap:.75rem; text-decoration:none; color:var(--fg); }
+  .brand img { width:48px; height:48px; border-radius:11px; }
+  .brand span { font-size:1.3rem; font-weight:700; letter-spacing:.01em; }
+  h1 { font-size:clamp(1.9rem, 6vw, 2.5rem); line-height:1.15; margin:1.6rem 0 .4rem; }
+  .intro { color:var(--muted); margin:0 0 1.5rem; }
+  .contact { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:1.25rem;
+             display:flex; flex-direction:column; align-items:center; text-align:center; gap:.85rem; }
+  .write { display:inline-block; background:var(--btn); color:var(--btnfg); text-decoration:none; font-weight:700;
+           font-size:1.1rem; padding:.85rem 1.6rem; border-radius:14px; min-height:3rem; }
+  .write:hover { filter:brightness(1.06); }
+  .write:focus-visible, .copy:focus-visible, summary:focus-visible { outline:3px solid var(--coral); outline-offset:3px; }
+  .addr { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; justify-content:center; }
+  .addr code { font:inherit; font-weight:600; user-select:all; word-break:break-all; }
+  .copy { border:1px solid var(--line); background:transparent; color:var(--fg); border-radius:10px; padding:.35rem .8rem;
+          font:inherit; font-size:.9rem; cursor:pointer; min-height:2.2rem; }
+  .hint { color:var(--muted); font-size:.92rem; margin:0; max-width:32rem; }
+  h2 { font-size:1.3rem; margin:2.2rem 0 .8rem; }
+  details { background:var(--card); border:1px solid var(--line); border-radius:12px; margin:.55rem 0; }
+  summary { cursor:pointer; padding:.85rem 1rem; font-weight:600; list-style:none; display:flex; justify-content:space-between; gap:1rem; align-items:center; }
+  summary::-webkit-details-marker { display:none; }
+  summary::after { content:"+"; font-size:1.4rem; line-height:1; color:var(--accent); flex:none; }
+  details[open] summary::after { content:"−"; }
+  details p { margin:0; padding:0 1rem 1rem; color:var(--muted); }
+  footer { max-width:40rem; margin:0 auto; padding:1.25rem 0 calc(2.5rem + env(safe-area-inset-bottom));
+           border-top:1px solid var(--line); text-align:center; color:var(--muted); font-size:.92rem; }
+  footer nav { display:flex; flex-wrap:wrap; gap:.4rem 1.25rem; justify-content:center; margin-bottom:.5rem; }
+</style>
+</head>
+<body>
+<main>
+  <a class="brand" href="./" aria-label="Gomitolo, pagina iniziale"><img src="logo.png" alt="" width="48" height="48"><span>Gomitolo</span></a>
+
+  <h1>Serve una mano?</h1>
+  <p class="intro">Hai un dubbio, un problema o un suggerimento su Gomitolo? Scrivici: ti rispondiamo appena possibile.</p>
+
+  <section class="contact" aria-label="Contatti">
+    <a class="write" href="mailto:fcaimidev@gmail.com?subject=Supporto%20Gomitolo&amp;body=Ciao%2C%20ti%20scrivo%20per%20Gomitolo.%0A%0AVersione%20dell%27app%20%28la%20trovi%20in%20Impostazioni%29%3A%0AModello%20del%20telefono%20e%20sistema%3A%0A%0ACosa%20%C3%A8%20successo%20o%20cosa%20vorresti%20sapere%3A%0A">Scrivici un'email</a>
+    <div class="addr"><code id="addr">fcaimidev@gmail.com</code><button class="copy" id="copy" type="button">Copia</button></div>
+    <p class="hint">Si apre la tua app di posta con l'oggetto già compilato. Se non ne hai una, copia l'indirizzo e scrivici da dove preferisci. Per aiutarci a capire, indica la versione dell'app (in Impostazioni) e il modello del telefono.</p>
+  </section>
+
+  <section aria-labelledby="faq-title">
+    <h2 id="faq-title">Domande frequenti</h2>
+      <details><summary>Serve internet per giocare?</summary><p>No. Tutti i puzzle sono già nell&#x27;app e il gioco funziona anche offline. La connessione serve solo per i video facoltativi che regalano monete e per gli annunci.</p></details>
+      <details><summary>Ho cambiato telefono o reinstallato l&#x27;app: ritrovo i miei progressi?</summary><p>Gomitolo non ha account e non salva i progressi online: livelli, monete e impostazioni restano sul tuo telefono. Se il sistema del telefono non li ripristina da solo, cambiando telefono o disinstallando l&#x27;app si perdono. Per ricominciare da capo di proposito vai in Impostazioni → Azzera progresso.</p></details>
+      <details><summary>Come cambio il consenso agli annunci e alle statistiche?</summary><p>Da Impostazioni → Privacy e consenso puoi rivedere le tue scelte in qualsiasi momento. I dettagli sono nell&#x27;informativa sulla privacy.</p></details>
+      <details><summary>Come funzionano suggerimenti e monete?</summary><p>Le monete si guadagnano giocando (completando livelli, trovando parole extra, con il puzzle giornaliero) e con i video facoltativi: non esistono acquisti in app. Il primo suggerimento di un livello è gratuito, gli altri si pagano con le monete.</p></details>
+      <details><summary>Perché il Time attack è bloccato?</summary><p>Si sblocca dopo aver completato alcuni livelli della campagna: nella schermata iniziale vedi quale livello serve.</p></details>
+      <details><summary>Una parola valida non viene accettata. Perché?</summary><p>Il gioco riconosce un elenco di parole italiane comuni (sostantivi e verbi, con le loro forme più usate). Alcune parole valide non ci sono, e le parole accentate o troncate non contano né come bonus né come errore. Se pensi che ne manchi una, scrivici quale.</p></details>
+  </section>
+</main>
+
+<footer>
+  <nav aria-label="Altre pagine">
+    <a href="./">Pagina iniziale</a>
+    <a href="privacy.html">Informativa sulla privacy</a>
+    <a href="terms.html">Termini di servizio</a>
+  </nav>
+  <div>© 2026 Gomitolo</div>
+</footer>
+
+<script>
+  // Copia l'indirizzo negli appunti; se il browser lo rifiuta lo seleziona, così basta Ctrl+C.
+  (function () {
+    var btn = document.getElementById('copy'), addr = document.getElementById('addr');
+    if (!btn || !addr) return;
+    function select() {
+      var r = document.createRange(); r.selectNodeContents(addr);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    }
+    btn.addEventListener('click', function () {
+      var done = function () { btn.textContent = 'Copiato'; setTimeout(function () { btn.textContent = 'Copia'; }, 2000); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(addr.textContent).then(done, function () { select(); btn.textContent = 'Selezionato'; });
+      } else { select(); btn.textContent = 'Selezionato'; }
+    });
+  })();
+</script>
+</body>
+</html>

@@ -84,7 +84,13 @@
   .shots { width:100%; }
   .rail { display:flex; gap:14px; overflow-x:auto; padding:6px 2px 36px; margin-bottom:-18px;
           scroll-snap-type:x mandatory; scroll-padding:0 2px;
-          -webkit-overflow-scrolling:touch; scrollbar-width:thin; text-align:left; }
+          -webkit-overflow-scrolling:touch; scrollbar-width:none; text-align:left; }
+  .rail::-webkit-scrollbar { display:none; }
+  .dots { display:flex; justify-content:center; gap:2px; margin-top:.1rem; }
+  .dots button { width:24px; height:24px; padding:0; border:0; background:none; cursor:pointer; display:grid; place-items:center; }
+  .dots button::before { content:""; width:9px; height:9px; border-radius:50%; background:var(--line); transition:background .2s, transform .2s; }
+  .dots button[aria-current="true"]::before { background:var(--coral); transform:scale(1.25); }
+  .dots button:focus-visible { outline:3px solid var(--coral); border-radius:50%; }
   .rail:focus-visible { outline:3px solid var(--coral); outline-offset:-3px; border-radius:12px; }
   .rail figure { margin:0; flex:0 0 auto; width:min(62vw, 250px); scroll-snap-align:start; }
   .rail img { display:block; width:100%; height:auto; border-radius:22px; border:1px solid var(--line);
@@ -130,6 +136,7 @@
       <figure><img src="assets/s4.jpg" width="540" height="960" alt="Il puzzle giornaliero con il calendario" loading="lazy"></figure>
       <figure><img src="assets/s5.jpg" width="540" height="960" alt="La schermata iniziale di Gomitolo" loading="lazy"></figure>
     </div>
+    <div class="dots" id="dots" aria-label="Scegli una schermata"></div>
   </div>
 
   <div class="stores">
@@ -154,7 +161,7 @@
   <nav aria-label="Informazioni legali e contatti">
     <a href="privacy.html">Informativa sulla privacy</a>
     <a href="terms.html">Termini di servizio</a>
-    <a href="mailto:fcaimidev@gmail.com">Supporto</a>
+    <a href="support.html">Supporto</a>
   </nav>
   <div>© 2026 Gomitolo · Per giocatori dai 16 anni in su</div>
 </footer>
@@ -172,6 +179,53 @@
     });
     var note = document.getElementById('stores-note');
     if (any && note) note.hidden = true;
+  })();
+
+  // Slideshow automatico: ogni pochi secondi passa alla schermata successiva
+  // e riparte dalla prima. Si ferma se l'utente scorre, tocca o passa sopra
+  // con il mouse, e non parte se il sistema chiede di ridurre i movimenti.
+  (function () {
+    var rail = document.querySelector('.rail'), dotsBox = document.getElementById('dots');
+    if (!rail || !dotsBox) return;
+    var figs = Array.prototype.slice.call(rail.querySelectorAll('figure'));
+    var dots = [], paused = false, lastTouch = 0, DELAY = 3500, IDLE = 8000;
+    function offset(i) { return figs[i].offsetLeft - figs[0].offsetLeft; }
+    function current() {
+      var best = 0, d = Infinity;
+      figs.forEach(function (f, i) {
+        var x = Math.abs(offset(i) - rail.scrollLeft); if (x < d) { d = x; best = i; }
+      });
+      return best;
+    }
+    function mark() {
+      var i = current();
+      var atEnd = rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 2;
+      if (atEnd) i = figs.length - 1;
+      dots.forEach(function (b, k) { if (k === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+    }
+    function go(i) { rail.scrollTo({ left: offset(i), behavior: 'smooth' }); }
+    figs.forEach(function (f, i) {
+      var b = document.createElement('button'); b.type = 'button';
+      b.setAttribute('aria-label', 'Schermata ' + (i + 1) + ' di ' + figs.length);
+      b.addEventListener('click', function () { lastTouch = Date.now(); go(i); });
+      dotsBox.appendChild(b); dots.push(b);
+    });
+    rail.addEventListener('scroll', mark, { passive: true });
+    window.addEventListener('resize', mark);
+    ['pointerdown', 'touchstart', 'wheel', 'keydown', 'focusin'].forEach(function (ev) {
+      rail.addEventListener(ev, function () { lastTouch = Date.now(); }, { passive: true });
+    });
+    var box = rail.parentNode;
+    box.addEventListener('mouseenter', function () { paused = true; });
+    box.addEventListener('mouseleave', function () { paused = false; });
+    mark();
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    setInterval(function () {
+      if (paused || document.hidden || Date.now() - lastTouch < IDLE) return;
+      var atEnd = rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 2;
+      go(atEnd ? 0 : Math.min(current() + 1, figs.length - 1));
+    }, DELAY);
   })();
 </script>
 </body>
